@@ -1,0 +1,41 @@
+server:
+  port: ${GATEWAY_PORT:9090}
+
+spring:
+  application:
+    name: contacts-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+      routes:
+        - id: contacts-service
+          uri: ${CONTACTS_SERVICE_URI:http://localhost:8080}
+          predicates:
+            - Path=/contacts/**
+          filters:
+            - RewritePath=/contacts(?<segment>/?.*), /api/v1/contacts${segment}
+        - id: contacts-openapi
+          uri: ${CONTACTS_SERVICE_URI:http://localhost:8080}
+          predicates:
+            - Path=/contacts-api-docs/**
+          filters:
+            - RewritePath=/contacts-api-docs(?<segment>/?.*), /v3/api-docs${segment}
+        - id: contacts-swagger
+          uri: ${CONTACTS_SERVICE_URI:http://localhost:8080}
+          predicates:
+            - Path=/contacts-swagger/**
+          filters:
+            - RewritePath=/contacts-swagger(?<segment>/?.*), /swagger-ui${segment}
+        - id: contacts-actuator
+          uri: ${CONTACTS_SERVICE_URI:http://localhost:8080}
+          predicates:
+            - Path=/contacts-actuator/**
+          filters:
+            - RewritePath=/contacts-actuator(?<segment>/?.*), /actuator${segment}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

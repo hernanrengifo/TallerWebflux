@@ -2,6 +2,10 @@
 
 CRUD de contactos con **Spring WebFlux** (Java 21), arquitectura **hexagonal (Ports & Adapters)**, persistencia **R2DBC PostgreSQL**, documentación **OpenAPI**, y despliegue en **Heroku**.
 
+## Módulos Gradle
+- `contacts-service`: servicio WebFlux principal (API de contactos).
+- `gateway`: API Gateway construido con Spring Cloud Gateway.
+
 ## Dominio
 Entidad `Contact`:
 - `id` (UUID)
@@ -56,9 +60,9 @@ Paquetes:
    export SPRING_R2DBC_USERNAME=postgres
    export SPRING_R2DBC_PASSWORD=postgres
    ```
-3. Ejecuta:
+3. Ejecuta el servicio:
    ```bash
-   ./gradlew bootRun
+   ./gradlew :contacts-service:bootRun
    ```
 
 ## Endpoints

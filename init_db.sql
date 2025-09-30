@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS contacts (
+  id UUID PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  direccion VARCHAR(200),
+  telefono VARCHAR(20),
+  email VARCHAR(254) NOT NULL UNIQUE
+);

@@ -1,4 +1,4 @@
-package com.example.contacts.in.web;
+package com.nubit.contacts.in.web;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.context.annotation.Bean;

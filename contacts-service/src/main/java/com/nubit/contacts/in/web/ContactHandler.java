@@ -1,7 +1,7 @@
-package com.example.contacts.in.web;
+package com.nubit.contacts.in.web;
 
-import com.example.contacts.application.ContactService;
-import com.example.contacts.domain.Contact;
+import com.nubit.contacts.application.ContactService;
+import com.nubit.contacts.domain.Contact;
 import jakarta.validation.Validator;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;

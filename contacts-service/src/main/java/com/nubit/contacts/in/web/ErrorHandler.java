@@ -28,8 +28,6 @@ public class ErrorHandler implements ErrorWebExceptionHandler {
 
     @Override
     public Mono<Void> handle(org.springframework.web.server.ServerWebExchange exchange, Throwable ex) {
-        ServerRequest request = ServerRequest.create(exchange, exchange.getRequest().getHeaders());
-        Map<String, Object> attrs = errorAttributes.getErrorAttributes(request, ErrorAttributeOptions.defaults());
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 
         if (ex instanceof IllegalArgumentException) status = HttpStatus.BAD_REQUEST;
@@ -50,7 +48,7 @@ public class ErrorHandler implements ErrorWebExceptionHandler {
         try {
             bytes = new com.fasterxml.jackson.databind.ObjectMapper().writeValueAsBytes(body);
         } catch (Exception e) {
-            bytes = ("{"status":" + status.value() + "}").getBytes();
+            bytes = ("{status:" + status.value() + "}").getBytes();
         }
         var buffer = exchange.getResponse().bufferFactory().wrap(bytes);
         return exchange.getResponse().writeWith(Mono.just(buffer));

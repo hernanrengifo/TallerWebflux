@@ -18,7 +18,7 @@ public class Contact {
     @Size(max = 200)
     private String direccion;
 
-    @Pattern(regexp = "^[0-9+()\-\s]{7,20}$", message = "telefono invalido")
+    @Pattern(regexp = "^[0-9+()\\-\\s]{7,20}$", message = "telefono invalido")
     private String telefono;
 
     @NotBlank

@@ -7,6 +7,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/PlainReactor" />
             <option value="$PROJECT_DIR$/contacts-service" />
             <option value="$PROJECT_DIR$/gateway" />
           </set>

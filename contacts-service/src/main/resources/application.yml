@@ -5,12 +5,11 @@ spring:
   application:
     name: webflux-contacts-hex
   r2dbc:
-    url: ${SPRING_R2DBC_URL:r2dbc:postgresql://localhost:5432/contacts}
-    username: ${SPRING_R2DBC_USERNAME:postgres}
-    password: ${SPRING_R2DBC_PASSWORD:postgres}
+    url: r2dbc:h2:file:///.//contactsdb;DB_CLOSE_ON_EXIT=TRUE;AUTO_RECONNECT=TRUE
   sql:
     init:
-      mode: never
+      mode: always
+      schema-locations: classpath:init_db.sql
 
 management:
   endpoints:

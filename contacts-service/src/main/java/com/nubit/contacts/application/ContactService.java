@@ -19,15 +19,15 @@ public class ContactService {
     }
 
     public Mono<Contact> create(@Valid Contact c) {
-        if (c.getId() == null) c.setId(UUID.randomUUID());
+        if (c.getId() == null) c.setId(UUID.randomUUID().toString());
         return repo.findByEmail(c.getEmail())
                 .flatMap(existing -> Mono.<Contact>error(new IllegalStateException("email duplicado")))
                 .switchIfEmpty(repo.save(c));
     }
 
-    public Mono<Contact> get(UUID id) { return repo.findById(id); }
+    public Mono<Contact> get(String id) { return repo.findById(id); }
 
-    public Mono<Contact> update(UUID id, @Valid Contact c) {
+    public Mono<Contact> update(String id, @Valid Contact c) {
         return repo.findById(id)
                 .switchIfEmpty(Mono.error(new IllegalArgumentException("no encontrado")))
                 .flatMap(existing -> {
@@ -36,7 +36,7 @@ public class ContactService {
                 });
     }
 
-    public Mono<Void> delete(UUID id) {
+    public Mono<Void> delete(String id) {
         return repo.deleteById(id);
     }
 

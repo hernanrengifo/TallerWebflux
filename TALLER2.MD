@@ -74,34 +74,6 @@ Paquetes:
 
 Swagger UI: `http://localhost:8080/swagger-ui.html`
 
-## Despliegue en Heroku
-1. Crea la app y el addon:
-   ```bash
-   heroku create
-   heroku addons:create heroku-postgresql:mini
-   ```
-2. Obtén `DATABASE_URL` y expórtalo a variables R2DBC:
-   ```bash
-   # Heroku entrega: postgres://user:pass@host:port/db
-   DATABASE_URL=$(heroku config:get DATABASE_URL)
-
-   # Transforma a R2DBC
-   export SPRING_R2DBC_URL=$(echo $DATABASE_URL | sed -e 's/^postgres:/r2dbc:postgresql:/')
-   export SPRING_R2DBC_USERNAME=$(echo $DATABASE_URL | sed -E 's|^postgres://([^:]+):.*$|\1|')
-   export SPRING_R2DBC_PASSWORD=$(echo $DATABASE_URL | sed -E 's|^postgres://[^:]+:([^@]+)@.*$|\1|')
-   ```
-   O define estas variables en Heroku:
-   ```bash
-   heroku config:set SPRING_R2DBC_URL=r2dbc:postgresql://HOST:PORT/DB
-   heroku config:set SPRING_R2DBC_USERNAME=USER
-   heroku config:set SPRING_R2DBC_PASSWORD=PASS
-   ```
-3. Configura el `Procfile` y despliega:
-   ```bash
-   git add . && git commit -m "deploy"
-   git push heroku main
-   ```
-
 ## DDL
 Ver `init_db.sql` (aplica en local y en Heroku).
 

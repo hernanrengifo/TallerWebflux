@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
-public interface SpringDataContactRepository extends ReactiveCrudRepository<Contact, UUID> {
+public interface SpringDataContactRepository extends ReactiveCrudRepository<Contact, String> {
     Flux<Contact> findByNombreContainsIgnoreCase(String nombre);
     Mono<Contact> findByEmail(String email);
 }

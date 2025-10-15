@@ -17,7 +17,8 @@ dependencies {
 
     // R2DBC + Postgres
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
-    implementation("org.postgresql:r2dbc-postgresql:1.0.5.RELEASE")
+    implementation("io.r2dbc:r2dbc-h2:1.0.0.RELEASE")
+    implementation("com.h2database:h2:2.1.214")
 
     // OpenAPI (springdoc) for WebFlux
     implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.6.0")

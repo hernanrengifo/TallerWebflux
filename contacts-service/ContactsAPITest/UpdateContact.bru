@@ -1,0 +1,27 @@
+meta {
+  name: UpdateContact
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/api/v1/contacts
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": "22",
+    "nombre": "Juan Pérez",
+    "direccion": "Calle 123, Ciudad",
+    "telefono": "+57 300 1234567",
+    "email": "juan.perez@example.com"
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

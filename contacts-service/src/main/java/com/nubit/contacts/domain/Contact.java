@@ -1,15 +1,18 @@
 package com.nubit.contacts.domain;
 
-import java.util.UUID;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Table;
 import jakarta.validation.constraints.*;
 
-@Table("contacts")
-public class Contact {
+import java.io.Serializable;
+
+@Table(value = "CONTACTS",schema ="PUBLIC" )
+public class Contact implements Serializable, Persistable<String> {
 
     @Id
-    private UUID id;
+    private String id;
 
     @NotBlank
     @Size(min = 2, max = 100)
@@ -27,7 +30,7 @@ public class Contact {
 
     public Contact() {}
 
-    public Contact(UUID id, String nombre, String direccion, String telefono, String email) {
+    public Contact(String id, String nombre, String direccion, String telefono, String email) {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -35,8 +38,22 @@ public class Contact {
         this.email = email;
     }
 
-    public UUID getId() { return id; }
-    public void setId(UUID id) { this.id = id; }
+    public String getId() { return id; }
+
+    @Transient
+    private boolean isNew = false;
+    @Override
+    @Transient
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public Contact markAsNew() {
+        this.isNew = true;
+        return this;
+    }
+
+    public void setId(String id) { this.id = id; }
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public String getDireccion() { return direccion; }

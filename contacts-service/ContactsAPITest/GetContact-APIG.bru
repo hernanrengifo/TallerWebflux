@@ -1,0 +1,27 @@
+meta {
+  name: GetContact-APIG
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:9090/contacts/23
+  body: none
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": "b1a7c8e2-3f4d-4a6b-9c2e-1f2a3b4c5d6e",
+    "nombre": "Juan Pérez",
+    "direccion": "Calle 123, Ciudad",
+    "telefono": "+57 300 1234567",
+    "email": "juan.perez@example.com"
+  }
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

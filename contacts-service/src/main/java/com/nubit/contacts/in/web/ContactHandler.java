@@ -27,6 +27,7 @@ public class ContactHandler {
     public Mono<ServerResponse> create(ServerRequest req) {
         return req.bodyToMono(Contact.class)
                 .flatMap(this::validate)
+                .map(Contact::markAsNew)
                 .flatMap(service::create)
                 .flatMap(c -> ServerResponse.created(req.uriBuilder().pathSegment(c.getId().toString()).build())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -34,14 +35,14 @@ public class ContactHandler {
     }
 
     public Mono<ServerResponse> get(ServerRequest req) {
-        UUID id = UUID.fromString(req.pathVariable("id"));
+        String id = req.pathVariable("id");
         return service.get(id)
                 .flatMap(c -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(c))
                 .switchIfEmpty(ServerResponse.notFound().build());
     }
 
     public Mono<ServerResponse> update(ServerRequest req) {
-        UUID id = UUID.fromString(req.pathVariable("id"));
+        String id = req.pathVariable("id");
         return req.bodyToMono(Contact.class)
                 .flatMap(this::validate)
                 .flatMap(c -> service.update(id, c))
@@ -49,7 +50,7 @@ public class ContactHandler {
     }
 
     public Mono<ServerResponse> delete(ServerRequest req) {
-        UUID id = UUID.fromString(req.pathVariable("id"));
+        String id = req.pathVariable("id");
         return service.delete(id)
                 .then(ServerResponse.noContent().build());
     }

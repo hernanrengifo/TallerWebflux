@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.UUID;
 
 @Component
 public class ContactRepositoryAdapter implements ContactRepositoryPort {
@@ -21,10 +20,10 @@ public class ContactRepositoryAdapter implements ContactRepositoryPort {
     public Mono<Contact> save(Contact c) { return repo.save(c); }
 
     @Override
-    public Mono<Contact> findById(UUID id) { return repo.findById(id); }
+    public Mono<Contact> findById(String id) { return repo.findById(id); }
 
     @Override
-    public Mono<Void> deleteById(UUID id) { return repo.deleteById(id); }
+    public Mono<Void> deleteById(String id) { return repo.deleteById(id); }
 
     @Override
     public Flux<Contact> findAll() { return repo.findAll(); }

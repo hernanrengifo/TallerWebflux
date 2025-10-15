@@ -7,8 +7,8 @@ import java.util.UUID;
 
 public interface ContactRepositoryPort {
     Mono<Contact> save(Contact c);
-    Mono<Contact> findById(UUID id);
-    Mono<Void> deleteById(UUID id);
+    Mono<Contact> findById(String id);
+    Mono<Void> deleteById(String id);
     Flux<Contact> findAll();
     Flux<Contact> findByNombreContainsIgnoreCase(String nombre);
     Mono<Contact> findByEmail(String email);
